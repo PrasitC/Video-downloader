@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Downloader</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+</head>
+<body>
+    <h1>Void gram </h1>
+    <form id="videoForm" method="POST" action="{% url 'download' %}">
+        {% csrf_token %}
+        <label for="videoUrl">Video URL:</label>
+        <input type="text" id="videoUrl" name="link" required>
+        <label for="resolution">Resolution:</label>
+        <select id="resolution" name="resolution">
+            <option value="highest">Highest</option>
+            <option value="lowest">Lowest</option>
+        </select>
+        <button type="submit">Download</button>
+    </form>
+    <div id="message"></div>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('videoForm').addEventListener('submit', function(event) {
+            var videoUrl = document.getElementById('videoUrl').value;
+            var messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = 'Video download started. Check your downloads folder.';
+        });
+    </script>
+</body>
+</html>
